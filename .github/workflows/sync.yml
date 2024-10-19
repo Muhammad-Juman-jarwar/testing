@@ -1,0 +1,27 @@
+name: Push to Another Repo
+
+on: [push]
+
+jobs:
+  push_to_another_repo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source repository
+      uses: actions/checkout@v2
+
+    - name: Set up Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Push to another repository
+      env:
+        GH_PAT: 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
+      run: |
+        git clone --branch main https://github.com/Muhammad-Juman-jarwar786/testing.git target_repo
+        rsync -av --exclude='.git' ./ target_repo/
+        cd target_repo
+        git add .
+        git commit -m "Automated commit from GitHub Actions"
+        git push https://$GH_PAT@github.com/Muhammad-Juman-jarwar786/testing.git main
