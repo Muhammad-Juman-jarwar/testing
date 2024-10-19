@@ -16,12 +16,15 @@ jobs:
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
     - name: Push to another repository
-      env:
-        GH_PAT: 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
       run: |
-        git clone --branch main https://github.com/Muhammad-Juman-jarwar786/testing.git target_repo
+        # Clone the target repository
+        git clone --branch main https://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@github.com/Muhammad-Juman-jarwar786/testing.git target_repo
+        
+        # Sync files from the source to the target repository
         rsync -av --exclude='.git' ./ target_repo/
+        
+        # Commit and push changes to the target repository
         cd target_repo
         git add .
         git commit -m "Automated commit from GitHub Actions"
-        git push https://$GH_PAT@github.com/Muhammad-Juman-jarwar786/testing.git main
+        git push https://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@github.com/Muhammad-Juman-jarwar786/testing.git main
