@@ -7,31 +7,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout source repository
-      uses: actions/checkout@v2
+      # Step 1: Checkout the source repository
+      - name: Checkout source repository
+        uses: actions/checkout@v2
 
-    - name: Set up Git
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      # Step 2: Set up Git configuration
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-    - name: Set up Authentication for Git Push
-      run: |
-        # Configure the remote URL to use the PAT for authentication
-        git remote add backup https://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@github.com/Muhammad-Juman-jarwar786/testing.git
+      # Step 3: Clone the target repository using the PAT
+      - name: Clone the target repository
+        run: |
+          git clone https://x-access-token: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@github.com/Muhammad-Juman-jarwar786/testing.git target_repo
 
-    - name: Clone the target repository
-      run: |
-        # Clone the target repository with the PAT directly
-        git clone https://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@github.com/Muhammad-Juman-jarwar786/testing.git target_repo
-        
-    - name: Sync files from source to target repo
-      run: |
-        rsync -av --exclude='.git' ./ target_repo/
-        
-    - name: Commit and Push changes to the target repository
-      run: |
-        cd target_repo
-        git add .
-        git commit -m "Automated commit from GitHub Actions"
-        git push origin main --force
+      # Step 4: Sync files from the source repository to the target repository
+      - name: Sync files from source to target repo
+        run: |
+          rsync -av --exclude='.git' ./ target_repo/
+
+      # Step 5: Commit and push the changes to the target repository
+      - name: Commit and Push changes to the target repository
+        run: |
+          cd target_repo
+          git add .
+          git commit -m "Automated commit from GitHub Actions"
+          git push origin main --force
