@@ -15,13 +15,23 @@ jobs:
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-    - name: Push to another repository
-      env:
-        GH_PAT: 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
+    - name: Set up Authentication for Git Push
       run: |
-        git clone --branch main https://github.com/Muhammad-Juman-jarwar786/testing.git target_repo
+        # Configure the remote URL to use the PAT for authentication
+        git remote add backup https://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@github.com/Muhammad-Juman-jarwar786/testing.git
+
+    - name: Clone the target repository
+      run: |
+        # Clone the target repository with the PAT directly
+        git clone https://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@github.com/Muhammad-Juman-jarwar786/testing.git target_repo
+        
+    - name: Sync files from source to target repo
+      run: |
         rsync -av --exclude='.git' ./ target_repo/
+        
+    - name: Commit and Push changes to the target repository
+      run: |
         cd target_repo
         git add .
         git commit -m "Automated commit from GitHub Actions"
-        git push https://$GH_PAT@github.com/Muhammad-Juman-jarwar786/testing.git main
+        git push origin main --force
