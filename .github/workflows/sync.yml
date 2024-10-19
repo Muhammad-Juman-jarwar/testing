@@ -30,7 +30,7 @@ jobs:
       # Step 5: Commit and push the changes to the target repository using the PAT
       - name: Commit and Push changes to the target repository
         run: |
-          cd target_repo
+          cd ./target_repo
           git add .
           git commit -m "Automated commit from GitHub Actions"
           git push https://x-access-token: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@github.com/Muhammad-Juman-jarwar786/testing.git main --force
