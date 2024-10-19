@@ -14,16 +14,16 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
+    
+    # Use the GitHub Secret PAT for authentication
     - name: Set up Authentication for Git Push
       run: |
-        # Configure the remote URL to use the PAT for authentication
-        git remote add backup https://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@github.com/Muhammad-Juman-jarwar786/testing.git
+        git remote add backup https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Muhammad-Juman-jarwar786/testing.git
 
     - name: Clone the target repository
       run: |
-        # Clone the target repository with the PAT directly
-        git clone https://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@github.com/Muhammad-Juman-jarwar786/testing.git target_repo
+        # Clone the target repository with the PAT directly from the GitHub secret
+        git clone https://x-access-token:${{ secrets.BACK_UP_TOKEN }}@github.com/Muhammad-Juman-jarwar786/testing.git target_repo
         
     - name: Sync files from source to target repo
       run: |
