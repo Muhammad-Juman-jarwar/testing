@@ -18,12 +18,12 @@ jobs:
     # Use the GitHub Secret PAT for authentication
     - name: Set up Authentication for Git Push
       run: |
-        git remote add backup https://x-access-token:${{ secrets.BACK_UP_TOKEN }}@github.com/Muhammad-Juman-jarwar786/testing.git
+        git remote add backup https://x-access-token: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@github.com/Muhammad-Juman-jarwar786/testing.git
 
     - name: Clone the target repository
       run: |
         # Clone the target repository with the PAT directly from the GitHub secret
-        git clone https://x-access-token:${{ secrets.BACK_UP_TOKEN }}@github.com/Muhammad-Juman-jarwar786/testing.git target_repo
+        git clone https://x-access-token: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@github.com/Muhammad-Juman-jarwar786/testing.git target_repo
         
     - name: Sync files from source to target repo
       run: |
